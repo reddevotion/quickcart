@@ -1,6 +1,7 @@
 "use client"
 import createProduct from '@/actions/createProduct'
 import { assets } from '@/assets/assets'
+import { useAppContext } from '@/context/AppContext'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { CldUploadWidget } from 'next-cloudinary'
 import Image from 'next/image'
@@ -9,9 +10,8 @@ import React, { useActionState, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 const Page = () => {
-  const {user} = useUser()
+  const { user, router} = useAppContext()
   const {userId} = useAuth()
-  const router = useRouter()
   const [files, setFiles] = useState<string[]>([])
 useEffect(() => {
   if(!user || user?.publicMetadata?.role !== "seller") {

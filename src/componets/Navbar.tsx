@@ -1,5 +1,6 @@
 "use client"
 import { assets, links } from '@/assets/assets'
+import { useAppContext } from '@/context/AppContext'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import { AlignJustify, Box, Heart, ShoppingCart, User } from 'lucide-react'
 import Image from 'next/image'
@@ -9,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 
 const Navbar = () => {
     const [isSidebarOpen, setIsSideBarOpen] = useState(false)
-    const router = useRouter()
+    const { user, router } = useAppContext()
 
 
   useEffect(() => {
@@ -71,9 +72,11 @@ const Navbar = () => {
             </ul>
         </nav>
         <div className='flex gap-4'>
-            <Link href="/seller" className='flex items-center text-xs border px-4 py-1.5 rounded-full hover:text-orange-600 transition'>
-                Seller Dashboard
-            </Link>
+            {
+                !user || user?.publicMetadata?.role !== "seller" && (<Link href="/seller" className='flex items-center text-xs border px-4 py-1.5 rounded-full hover:text-orange-600 transition'>
+                    Seller Dashboard
+                </Link>)
+            }
             <button className='md:hidden cursor-pointer' onClick={() => setIsSideBarOpen(prev => !prev)}>
                 <AlignJustify/>
             </button>
