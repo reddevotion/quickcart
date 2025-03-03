@@ -1,0 +1,50 @@
+import connectDB from "@/config/db";
+import User from "@/models/UserModel";
+import { NextApiRequest, NextApiResponse } from "next";
+import { v2 as cloudinary } from 'cloudinary';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method === "POST") {
+        const event = req.body;
+        try {
+            await connectDB();
+
+            cloudinary.config({ 
+                cloud_name: "dfc5ocndv", 
+                api_key: process.env.CLOUDINARY_API_KEY, 
+                api_secret: process.env.CLOUDINARY_API_SECRET,
+            });
+
+            switch (event.type) {
+                case "user.created":
+                    const profileImgUrl = event.data.profile_image_url;
+                    const username = event.data.username || event.data.email_addresses[0].email_address;
+                    const existingUser = await User.findOne({ username });
+                    if (existingUser) {
+                        return res.status(400).json({
+                            message: 'User already exists',
+                        });
+                    }
+                    const uploadImage
+                    const user = await new User
+                  
+                  break;
+          
+                case "user.updated":
+                  break;
+          
+                case "user.deleted":
+                  break;
+          
+                default:
+                  console.log('Unhandled event:', event.type);
+              }
+              res.status(200).json({ success: true });
+        } catch (error: any) {
+            return res.status(500).json({message: "Something went wront"+ error.message})
+        }
+    
+      } else {
+        res.status(405).json({ error: "Method not allowed" });
+      }
+}
