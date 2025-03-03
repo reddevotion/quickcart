@@ -3,7 +3,6 @@ import { assets } from '@/assets/assets';
 import OrderSummary from '@/componets/OrderSummary';
 import { useAppContext } from '@/context/AppContext';
 import { ProductType } from '@/utils/Types';
-import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast';
@@ -11,17 +10,6 @@ import toast from 'react-hot-toast';
 
 
   
-
-export const addRemoveItemFromCart = async (id: string, userId: string, action: string, amount?: number) => {
- try{
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/cart`, { id, userId, action, quantity: amount });
-    return response.data;
-  } catch (error) {
-    console.error('Error sending data:', error);
-    throw error;
-  }
-}
-
 const page = () => {
   const { user, router, userData, isUserLoading, products, isProductsLoading, cartItems, updateCartQuantity, addToCart, getCartCount} = useAppContext()
 
