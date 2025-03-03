@@ -73,7 +73,7 @@ const Navbar = () => {
         </nav>
         <div className='flex gap-4'>
             {
-                !user || user?.publicMetadata?.role !== "seller" && (<Link href="/seller" className='flex items-center text-xs border px-4 py-1.5 rounded-full hover:text-orange-600 transition'>
+                !user || user?.publicMetadata?.role === "seller" && (<Link href="/seller" className='flex items-center text-xs border px-4 py-1.5 rounded-full hover:text-orange-600 transition'>
                     Seller Dashboard
                 </Link>)
             }
