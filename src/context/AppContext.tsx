@@ -105,7 +105,7 @@ export const AppContextProvider = ({children} : {children : React.ReactNode}) =>
 
     const addToCart = async (itemId: string) => {
 
-        let cartData = structuredClone(cartItems);
+        let cartData = structuredClone(cartItems || {});
         if(!userData) {
             toast.error("You are not logged in");
             return;
