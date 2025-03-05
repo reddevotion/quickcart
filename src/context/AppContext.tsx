@@ -89,6 +89,13 @@ export const AppContextProvider = ({children} : {children : React.ReactNode}) =>
         }
     }, [userData])
 
+    useEffect(() => {
+        if (userData) {
+          setCartItems(userData.cartItems || {}); 
+          setUserAddresses(userData.addresses || []);
+        }
+      }, [userData]);
+
     const getCartCount = () => {
         let totalCount = 0;
         for (const items in cartItems) {

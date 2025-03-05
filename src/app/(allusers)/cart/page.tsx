@@ -25,7 +25,7 @@ const page = () => {
             <p className="text-2xl font-bold text-gray-800">Loading...</p>
           </div>)
             }
-          
+            
   return (
     <div className="flex flex-col md:flex-row gap-10 px-6 md:px-16 lg:px-32 pt-14 mb-20">
         <div className="flex-1">
@@ -54,9 +54,10 @@ const page = () => {
                 </tr>
               </thead>
               <tbody>
-                  {Object.keys(cartItems).map((itemId : string, index: number) => {
+                  {
+            Object.keys(cartItems).map((itemId : string, index: number) => {
                     const product = products.find((product:ProductType) => product._id === itemId);
-                    if (!product || userData?.cartItems[itemId] <= 0) return null;
+                    if (!product || !cartItems[itemId] || cartItems[itemId] <= 0) return null;
 
                     return (
                       <tr key={index}>

@@ -11,7 +11,7 @@ import { useAppContext } from '@/context/AppContext';
 const page = () => {
   const {id} = useParams()
 
-  const {router, userData, addToCart} = useAppContext()
+  const {router, addToCart} = useAppContext()
 
   const { data: product, isLoading, error } = useQuery({
     queryKey: ['product', id],
@@ -95,7 +95,7 @@ const page = () => {
                         <button onClick={async () => {await addToCart(id as string)}}className="w-full py-3.5 cursor-pointer bg-gray-100 text-gray-800/80 hover:bg-gray-200 transition">
                             Add to Cart
                         </button>
-                        <button onClick={async () => {await addToCart(id as string); setTimeout(() => {router.push('/cart')}, 1000) }} className="w-full py-3.5 cursor-pointer bg-orange-500 text-white hover:bg-orange-600 transition">
+                        <button onClick={async () => {await addToCart(id as string); router.push('/cart')}} className="w-full py-3.5 cursor-pointer bg-orange-500 text-white hover:bg-orange-600 transition">
                             Buy now
                         </button>
                     </div>
