@@ -5,10 +5,10 @@ import { assets } from '@/assets/assets'
 import { ProductCardProps} from '@/utils/Types'
 import { Heart } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useMutation } from '@tanstack/react-query';
+import { useAppContext } from '@/context/AppContext';
 
 
 
@@ -29,7 +29,8 @@ const addOrRemoveFav = async (id:string, userId:string) => {
 
 const ProductCard = ({product, isFavorite, userData, onFavoriteUpdate} : ProductCardProps) => {
     const [isProductFavorite, setIsProductFavorite] = useState(isFavorite);
-    const router = useRouter()
+
+    const {router} = useAppContext()
 
     const mutation = useMutation({
         mutationFn: () => addOrRemoveFav(product._id, userData._id),

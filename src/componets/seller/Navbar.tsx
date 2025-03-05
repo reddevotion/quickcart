@@ -1,12 +1,12 @@
 "use client"
 import { assets } from '@/assets/assets'
+import { useAppContext } from '@/context/AppContext'
 import { SignOutButton } from '@clerk/nextjs'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const Navbar = () => {
-    const router = useRouter()
+  const {router} = useAppContext()
   return (
     <header className='flex items-center section py-3 justify-between border-b border-gray-300'>
       <Image onClick={()=>router.push('/')} className='cursor-pointer' src={assets.logo} alt="logo" />

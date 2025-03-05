@@ -1,12 +1,10 @@
 "use client"
+import { useAppContext } from '@/context/AppContext'
 import { ProductType } from '@/utils/Types'
-import { useUser } from '@clerk/nextjs'
-import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Edit2, X } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import toast from 'react-hot-toast'
 
 
@@ -22,13 +20,7 @@ const fetchProducts = async () => {
   
 const ProductList = () => {
  
-  const { data: products, isLoading, error } = useQuery({
-    queryKey: ['products'],
-    queryFn: fetchProducts
-  }
-  );
-    const {user} = useUser()
-    const router = useRouter()
+const {router, user, products, isProductsLoading} = useAppContext()
   useEffect(() => {
     if(!user || user?.publicMetadata?.role !== "seller") {
       router.push('/')
@@ -56,7 +48,7 @@ const ProductList = () => {
                     </tr>
                 </thead>
                 <tbody className='text-sm text-gray-500'>
-                    {isLoading ? (
+                    {isProductsLoading ? (
                       <tr className='border-t border-gray-500/20'><td className='pl-2 md:pl-4 py-3'>Loading products...</td></tr>) : products.map((product : ProductType) => (
                         <tr key={product.name} className='border-t border-gray-500/20'>
                             <td className='md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate'>

@@ -2,10 +2,9 @@
 import createProduct from '@/actions/createProduct'
 import { assets } from '@/assets/assets'
 import { useAppContext } from '@/context/AppContext'
-import { useAuth, useUser } from '@clerk/nextjs'
+import { useAuth} from '@clerk/nextjs'
 import { CldUploadWidget } from 'next-cloudinary'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import React, { useActionState, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
